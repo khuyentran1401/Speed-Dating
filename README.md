@@ -10,7 +10,7 @@ python train_pipeline.py
 python predict.py
 ```
 # Files in this repository
-* [preprocessors.py](./preprocessorys.py)
+* [preprocessors.py](./preprocessors.py)
 # Result
 Achieve perfect accuracy score
 
