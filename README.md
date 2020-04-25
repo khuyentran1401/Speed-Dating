@@ -10,7 +10,7 @@ python train_pipeline.py
 python predict.py
 ```
 # Files in this repository
-* [preprocessors.py](./preprocessors.py): Class for preprocessing
+* [preprocessors.py](./preprocessors.py): Classes for preprocessing
 * [pipeline.py](./pipeline.py): Pipeline of esitmator and transformers for both numerical and categorical values 
 * [train_pipeline.py](./train_pipeline.py): for training 
 * [predict.py](./predict.py): for preprediction
