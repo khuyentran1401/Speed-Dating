@@ -1,0 +1,28 @@
+dataset:
+  data: data/raw.csv
+  encoding: iso-8859-1
+pipeline:
+  pipeline01: decisiontree
+target:
+  target: match
+variables:
+  categorical_label_extraction: zipcode
+  categorical_onehot: undergra
+  categorical_vars:
+  - undergra
+  - zipcode
+  drop_features:
+  - iid
+  - id
+  - idg
+  - wave
+  - position
+  - positin1
+  - pid
+  - field
+  - from
+  - career
+  numerical_vars_from_numerical:
+  - income
+  - mn_sat
+  - tuition

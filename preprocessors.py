@@ -10,10 +10,8 @@ from sklearn.preprocessing import OneHotEncoder
 class CategoricalImputer(BaseEstimator, TransformerMixin):
 
     def __init__(self, variables=None):
-        if not isinstance(variables, list):
-            self.variables = [variables]
-        else:
-            self.variables = variables
+        
+        self.variables = variables
 
     def fit(self, X, y=None):
         # we need the fit statement to accomodate the sklearn pipeline
@@ -84,13 +82,9 @@ class CategoricalToNumerical(BaseEstimator, TransformerMixin):
 
     def __init__(self, variables=None):
 
-        if not isinstance(variables, list):
-            self.variables = [variables]
-        else:
-            self.variables = variables
+        self.variables = variables
 
     def fit(self, X, y=None):
-
 
         return self
 
@@ -105,7 +99,6 @@ class CategoricalToNumerical(BaseEstimator, TransformerMixin):
         
         for feature in self.variables:
 
-
             X[feature] = X[feature].apply(object_to_num)
             X[feature] = X[feature].astype(np.float)
         return X
@@ -118,10 +111,7 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
         
         self.tol = tol
         
-        if not isinstance(variables, list):
-            self.variables = [variables]
-        else:
-            self.variables = variables
+        self.variables = variables
 
     def fit(self, X, y=None):
 
@@ -149,10 +139,8 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
 class CategoricalEncoder(BaseEstimator, TransformerMixin):
 
     def __init__(self, variables=None, target=None):
-        if not isinstance(variables, list):
-            self.variables = [variables]
-        else:
-            self.variables = variables
+        
+        self.variables = variables
 
     def fit(self, X, y=None):
          
@@ -197,7 +185,6 @@ class LogTransformer(BaseEstimator, TransformerMixin):
 
     def fit(self, X, y=None):
         # to accomodate the pipeline
-        print()
         self.variables = [var for var in X.columns if X[var].dtype != 'O']
 
         return self
@@ -214,11 +201,14 @@ class LogTransformer(BaseEstimator, TransformerMixin):
 class DropUnecessaryFeatures(BaseEstimator, TransformerMixin):
 
     def __init__(self, variables_to_drop=None):
-        
+
         self.variables = variables_to_drop
 
     def fit(self, X, y=None):
+        
+
         return self
+
 
     def transform(self, X):
         # encode labels
@@ -246,47 +236,10 @@ class LabelExtraction(BaseEstimator, TransformerMixin):
                 try:
                     X[feature][i] = X[feature][i].split(',')[0]
                 except:
-                    print(X[feature][i])
                     pass
 
         return X
 
-class FeatureHashing(BaseEstimator, TransformerMixin):
-
-    def __init__(self, variables=None, num_feature=None):
-
-        self.num_feature = num_feature
-
-        if not isinstance(variables, list):
-            self.variables = [variables]
-        else:
-            self.variables = variables
-
-    def fit(self, X, y=None):
-
-        X = X.copy()
-        
-        self.hasher = {}
-        
-        for var in self.variables:
-            h = FeatureHasher(n_features=10)
-            self.hasher[var]  = h.fit(X[var])
-
-        return self
-
-    def transform(self, X):
-        X = X.copy()
-
-        for feature in self.variables:
-            h = self.hasher[feature]
-            f = h.transform(X[feature])
-            f = pd.DataFrame(f.toarray())
-            
-            f = pd.DataFrame(f, columns = ['zipcode_' + str(i) for i in range(f.shape[1])])
-
-            X = pd.concat([X,f], axis = 1).drop(feature, axis=1)
-
-        return X
 
 
 

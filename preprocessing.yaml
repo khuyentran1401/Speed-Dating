@@ -1,0 +1,23 @@
+# data
+dataset:
+  data: data/raw.csv
+  encoding: iso-8859-1
+
+pipeline:
+  pipeline01: decisiontree
+
+target: 
+  target: match
+
+variables:
+# this variable is to calculate the temporal variable,
+# must be dropped afterwards
+  drop_features: ['iid','id','idg','wave','position','positin1', 'pid',  'field', 'from', 'career']
+
+  # categorical variables to transform to numerical variables
+  numerical_vars_from_numerical: ['income','mn_sat', 'tuition']
+
+  # categorical variables to encode
+  categorical_vars: ['undergra', 'zipcode']
+  categorical_label_extraction: ['zipcode']
+  categorical_onehot: ['undergra']
