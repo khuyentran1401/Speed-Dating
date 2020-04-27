@@ -11,7 +11,7 @@ import os
 
 
 
-@hydra.main(config_path='experiments/preprocessing.yaml')
+@hydra.main(config_path='preprocessing.yaml')
 def run_training(config):
     """Train the model."""
 

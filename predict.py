@@ -23,7 +23,7 @@ def make_prediction(input_data, config):
     return results, _pipe_match
    
 
-@hydra.main(config_path='experiments/preprocessing.yaml')
+@hydra.main(config_path='preprocessing.yaml')
 def training(config):   
 
     current_path = utils.get_original_cwd() + "/"
@@ -51,13 +51,8 @@ def training(config):
     print('confusion matrix: {}'.format(
         confusion_matrix(y_test, pred)))
 
-    dot_data = tree.export_graphviz(pipe['decision tree classifier'], out_file=None)
-    graph =graphviz.Source(dot_data)
-    graph.render('tree')
-
-    print(X_train.columns[84])
-    print(X_train.columns[15])
-
+    sort_indices = np.argsort(np.abs(pipe['classifier'].coef_))[0][::-1][:5]
+    print('Top 5 predictors: {} with the coefficients of {}'.format(X_train.columns[sort_indices], pipe['classifier'].coef_[0][sort_indices]))
 
 if __name__ == '__main__':
     training()

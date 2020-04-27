@@ -2,7 +2,7 @@ from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_extraction import FeatureHasher
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
 
 import preprocessors as pp
 import hydra
@@ -47,7 +47,7 @@ def pipeline(config):
              
             ('scaler', MinMaxScaler()),
 
-            ('decision tree classifier', DecisionTreeClassifier())
+            ('classifier', LogisticRegression())
         ]
     )
 
